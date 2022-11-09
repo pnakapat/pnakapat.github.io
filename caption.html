@@ -21,21 +21,29 @@
                     <form method="post" action=".">
                         <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
 
-
                         <form  class="form-horizontal" method="post" >
                             <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
-                            <div id="div_id_select" class="form-group required">
-                                <label for="id_select"  class="control-label col-md-4  requiredField"> Select<span class="asteriskField">*</span> </label>
+                            <div id="div_id_Broadcast" class="form-group required">
+                                <label for="id_broadcast"  class="control-label col-md-4  requiredField"> ประเภท<span class="asteriskField">*</span> </label>
                                 <div class="controls col-md-8 "  style="margin-bottom: 10px">
-                                    <label class="radio-inline"><input type="radio" checked="checked" name="select" id="id_select_1" value="S"  style="margin-bottom: 10px">Knowledge Seeker</label>
-                                    <label class="radio-inline"> <input type="radio" name="select" id="id_select_2" value="P"  style="margin-bottom: 10px">Knowledge Provider </label>
+                                    <label class="radio-inline"><input type="radio" checked="checked" name="broadcast" id="id_broadcast_1" value="L"  style="margin-bottom: 10px">LIVE</label>
+                                    <label class="radio-inline"> <input type="radio" name="select" id="id_broadcast_2" value="V"  style="margin-bottom: 10px">วิดีทัศน์ </label>
                                 </div>
                             </div> 
-                            <div id="div_id_As" class="form-group required">
-                                <label for="id_As"  class="control-label col-md-4  requiredField">As<span class="asteriskField">*</span> </label>
+                            <div id="div_id_Period" class="form-group required">
+                                <label for="id_Period"  class="control-label col-md-4  requiredField">ช่วง<span class="asteriskField">*</span> </label>
                                 <div class="controls col-md-8 "  style="margin-bottom: 10px">
-                                    <label class="radio-inline"> <input type="radio" name="As" id="id_As_1" value="I"  style="margin-bottom: 10px">Individual </label>
-                                    <label class="radio-inline"> <input type="radio" name="As" id="id_As_2" value="CI"  style="margin-bottom: 10px">Company/Institute </label>
+                                    <label class="radio-inline"> <input type="radio" checked="checked" name="Period" id="id_Period_1" value="M"  style="margin-bottom: 10px">เช้า </label>
+                                    <label class="radio-inline"> <input type="radio" name="Period" id="id_Period_2" value="A"  style="margin-bottom: 10px">บ่าย </label>
+                                    <label class="radio-inline"> <input type="radio" name="Period" id="id_Period_3" value="E"  style="margin-bottom: 10px">ค่ำ </label>
+                                </div>
+                            </div>
+                            <div id="div_id_Time" class="form-group required">
+                                <label for="id_Clock"  class="control-label col-md-4  requiredField">เวลา<span class="asteriskField">*</span> </label>
+                                <div class="controls col-md-8 "  style="margin-bottom: 10px">
+                                    <label class="radio-inline"> <input type="radio" checked="checked" name="Clock" id="id_Clock_1" value="SEVEN"  style="margin-bottom: 10px">07:00 </label>
+                                    <label class="radio-inline"> <input type="radio" name="Clock" id="id_Clock_2" value="THIRTEEN"  style="margin-bottom: 10px">13:00 </label>
+                                    <label class="radio-inline"> <input type="radio" name="Clock" id="id_Clock_3" value="NINETEEN"  style="margin-bottom: 10px">19:00 น.</label>
                                 </div>
                             </div>
                             <div id="div_id_username" class="form-group required">
