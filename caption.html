@@ -24,26 +24,34 @@
                         <form  class="form-horizontal" method="post" >
                             <input type='hidden' name='csrfmiddlewaretoken' value='XFe2rTYl9WOpV8U6X5CfbIuOZOELJ97S' />
                             <div id="div_id_Broadcast" class="form-group required">
-                                <label for="id_broadcast"  class="control-label col-md-4  requiredField"> ประเภท<span class="asteriskField">*</span> </label>
+                                <label for="id_broadcast"  class="control-label col-md-4  requiredField"> ประเภทการถ่ายทอด<span class="asteriskField">*</span> </label>
                                 <div class="controls col-md-8 "  style="margin-bottom: 10px">
                                     <label class="radio-inline"><input type="radio" checked="checked" name="broadcast" id="id_broadcast_1" value="L"  style="margin-bottom: 10px">LIVE</label>
-                                    <label class="radio-inline"> <input type="radio" name="select" id="id_broadcast_2" value="V"  style="margin-bottom: 10px">วิดีทัศน์ </label>
+                                    <label class="radio-inline"> <input type="radio" name="broadcast" id="id_broadcast_2" value="V"  style="margin-bottom: 10px">วิดีทัศน์ </label>
                                 </div>
                             </div> 
                             <div id="div_id_Period" class="form-group required">
-                                <label for="id_Period"  class="control-label col-md-4  requiredField">ช่วง<span class="asteriskField">*</span> </label>
+                                <label for="id_Period"  class="control-label col-md-4  requiredField">รอบการปฏิบัติ<span class="asteriskField">*</span> </label>
                                 <div class="controls col-md-8 "  style="margin-bottom: 10px">
                                     <label class="radio-inline"> <input type="radio" checked="checked" name="Period" id="id_Period_1" value="M"  style="margin-bottom: 10px">เช้า </label>
                                     <label class="radio-inline"> <input type="radio" name="Period" id="id_Period_2" value="A"  style="margin-bottom: 10px">บ่าย </label>
                                     <label class="radio-inline"> <input type="radio" name="Period" id="id_Period_3" value="E"  style="margin-bottom: 10px">ค่ำ </label>
                                 </div>
                             </div>
-                            <div id="div_id_Time" class="form-group required">
-                                <label for="id_Clock"  class="control-label col-md-4  requiredField">เวลา<span class="asteriskField">*</span> </label>
+                            <div id="div_id_Clock" class="form-group required">
+                                <label for="id_Clock"  class="control-label col-md-4  requiredField">ณ เวลา<span class="asteriskField">*</span> </label>
                                 <div class="controls col-md-8 "  style="margin-bottom: 10px">
                                     <label class="radio-inline"> <input type="radio" checked="checked" name="Clock" id="id_Clock_1" value="SEVEN"  style="margin-bottom: 10px">07:00 </label>
                                     <label class="radio-inline"> <input type="radio" name="Clock" id="id_Clock_2" value="THIRTEEN"  style="margin-bottom: 10px">13:00 </label>
                                     <label class="radio-inline"> <input type="radio" name="Clock" id="id_Clock_3" value="NINETEEN"  style="margin-bottom: 10px">19:00 น.</label>
+                                </div>
+                            </div>
+                            <div id="div_id_At" class="form-group required">
+                                <label for="id_At"  class="control-label col-md-4  requiredField">สถานที่<span class="asteriskField">*</span> </label>
+                                <div class="controls col-md-8 "  style="margin-bottom: 10px">
+                                    <label class="radio-inline"> <input type="radio" checked="checked" name="At" id="id_At_1" value="NA"  style="margin-bottom: 10px">ไม่ระบุ </label>
+                                    <label class="radio-inline"> <input type="radio" name="At" id="id_At_2" value="04"  style="margin-bottom: 10px">ศูนย์วิปัสสนายุวพุทธฯ เขมรังสี </label>
+                                    <label class="radio-inline"> <input type="radio" name="At" id="id_At_3" value="DJ"  style="margin-bottom: 10px">สวนธรรมเดินจิต</label>
                                 </div>
                             </div>
                             <div id="div_id_username" class="form-group required">
@@ -136,58 +144,61 @@
   </body>
   <script>
      $(document).ready(function() {
-
+        
         var enrollType;
       //  $("#div_id_As").hide();
+        /*
         $("input[name='As']").change(function() {
             memberType = $("input[name='select']:checked").val();
             providerType = $("input[name='As']:checked").val();
-        toggleIndividInfo();
+            
+            toggleIndividInfo();
         });
 
         $("input[name='select']").change(function() {
-        memberType = $("input[name='select']:checked").val();
-        toggleIndividInfo();
-        toggleLearnerTrainer();
-      });
+          memberType = $("input[name='select']:checked").val();
+          toggleIndividInfo();
+          toggleLearnerTrainer();
+        });
 
-      function toggleLearnerTrainer() {
+        function toggleLearnerTrainer() {
 
-      if (memberType == 'P' || enrollType=='company') {
-        $("#cityField").hide();
-        $("#providerType").show();
-        $(".provider").show();
-        $(".locationField").show();
-        if(enrollType=='INSTITUTE'){
-          $(".individ").hide();
+          if (memberType == 'P' || enrollType=='company') {
+            $("#cityField").hide();
+            $("#providerType").show();
+            $(".provider").show();
+            $(".locationField").show();
+            if(enrollType=='INSTITUTE'){
+              $(".individ").hide();
+            }
+
+          } 
+            else {
+            $("#providerType").hide();
+            $(".provider").hide();
+            $('#name').show();
+            $("#cityField").hide();
+            $(".locationField").show();
+            $("#instituteName").hide();
+            $("#cityField").show();
+
+          }
         }
-
-      } 
-        else {
-        $("#providerType").hide();
-        $(".provider").hide();
-        $('#name').show();
-        $("#cityField").hide();
-        $(".locationField").show();
-        $("#instituteName").hide();
-        $("#cityField").show();
-
-      }
-        }
+        
         function toggleIndividInfo(){
 
-      if(((typeof memberType!=='undefined' && memberType == 'TRAINER')||enrollType=='INSTITUTE') && providerType=='INDIVIDUAL'){
-        $("#instituteName").hide();
-        $(".individ").show();
-        $('#name').show();
-      }
-        else if((typeof memberType!=='undefined' && memberType == 'TRAINER')|| enrollType=='INSTITUTE'){
-        $('#name').hide();
-        $("#instituteName").show();
-        $(".individ").hide();
-      }
+          if(((typeof memberType!=='undefined' && memberType == 'TRAINER')||enrollType=='INSTITUTE') && providerType=='INDIVIDUAL'){
+            $("#instituteName").hide();
+            $(".individ").show();
+            $('#name').show();
+          }
+            else if((typeof memberType!=='undefined' && memberType == 'TRAINER')|| enrollType=='INSTITUTE'){
+            $('#name').hide();
+            $("#instituteName").show();
+            $(".individ").hide();
+          }
         }
-
+      */
      });
   </script>
 </html>
