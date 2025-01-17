@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Maker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        select, textarea, button, label {
+            width: 80%;
+            max-width: 600px;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        label {
+            font-weight: bold;
+        }
+        .character-count {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: right;
+            width: 80%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <header>AI Prompt Maker</header>
+
+    <!-- Selectable List -->
+    <select id="list1">
+        <option value="Craft under 500 characters AI prompt depict ">Craft under 500 characters AI prompt depict</option>
+        <option value="Depict " selected>Depict</option>
+        <option value="Craft AI Video prompt depict ">Craft AI Video prompt depict</option>
+    </select>
+
+    <!-- Editable Text Area -->
+    <textarea id="conceptTextArea">concept of</textarea>
+
+    <!-- Label -->
+    <label>Combine with these elements:</label>
+
+    <!-- Selectable Lists -->
+    <select id="list2">
+        <option value="contemporary period " selected>contemporary period</option>
+        <option value="timeless period">timeless period</option>
+        <option value="ancient India period">ancient India period</option>
+    </select>
+
+    <select id="list3">
+        <option value="35mm, noir atmosphere" selected>35mm, noir atmosphere</option>
+        <option value="photo">photo</option>
+        <option value="photorealistic">photorealistic</option>
+        <option value="digital art">digital art</option>
+        <option value="drawing">drawing</option>
+    </select>
+
+    <select id="list4">
+        <option value="natural lighting" selected>natural lighting</option>
+        <option value="drama lighting">drama lighting</option>
+    </select>
+
+    <select id="list5">
+        <option value="neutral mood" selected>neutral mood</option>
+        <option value="happy mood">happy mood</option>
+        <option value="sadness mood">sadness mood</option>
+    </select>
+
+    <select id="list6">
+        <option value="realistic" selected>realistic</option>
+        <option value="surreal">surreal</option>
+        <option value="fantasy storytelling">fantasy storytelling</option>
+        <option value="abstract">abstract</option>
+    </select>
+
+    <select id="list7">
+        <option value="daytime" selected>daytime</option>
+        <option value="nighttime">nighttime</option>
+        <option value="morning">morning</option>
+        <option value="noon">noon</option>
+        <option value="evening">evening</option>
+        <option value="sunrise">sunrise</option>
+        <option value="sunset">sunset</option>
+    </select>
+
+    <select id="list8">
+        <option value="" selected>None</option>
+        <option value="spring">spring</option>
+        <option value="summer">summer</option>
+        <option value="autumn">autumn</option>
+        <option value="winter">winter</option>
+    </select>
+
+    <!-- Final Editable Text Area -->
+    <textarea id="finalTextArea" placeholder="Generated prompt will appear here..."></textarea>
+    <label class="character-count" id="characterCount">0/500</label>
+
+    <!-- Button -->
+    <button onclick="generateText()">Generate</button>
+
+    <script>
+        function generateText() {
+            const list1Value = document.getElementById("list1").value || "";
+            const conceptText = document.getElementById("conceptTextArea").value || "";
+            const list2Value = document.getElementById("list2").value || "";
+            const list3Value = document.getElementById("list3").value || "";
+            const list4Value = document.getElementById("list4").value || "";
+            const list5Value = document.getElementById("list5").value || "";
+            const list6Value = document.getElementById("list6").value || "";
+            const list7Value = document.getElementById("list7").value || "";
+            const list8Value = document.getElementById("list8").value || "";
+
+            const finalText = `
+${list1Value}${conceptText}
+Combine with these elements: ${list2Value}, ${list3Value}, ${list4Value}, ${list5Value}, ${list6Value}, ${list7Value}, ${list8Value}`.trim();
+
+            document.getElementById("finalTextArea").value = finalText;
+
+            // Update character count
+            const charCount = finalText.length;
+            document.getElementById("characterCount").textContent = `${charCount}/500`;
+        }
+    </script>
+</body>
+</html>
