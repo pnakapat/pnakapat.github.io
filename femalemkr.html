@@ -32,7 +32,11 @@
         textarea {
             height: 100px;
         }
-        button {
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        .button-group button {
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
@@ -40,7 +44,7 @@
             color: white;
             cursor: pointer;
         }
-        button:hover {
+        .button-group button:hover {
             background-color: #0056b3;
         }
         .char-count {
@@ -130,7 +134,12 @@
 
     <div class="button-group">
         <button onclick="generateText()">Generate Text</button>
-        <button onclick="copyText()">Copy to Clipboard</button>
+        <button onclick="copyText()">
+            <img src="copy_icon.png" alt="Copy">
+        </button>
+        <button onclick="location.reload()">
+            <img src="refresh_icon.png" alt="Refresh">
+        </button>
     </div>
 
     <script>
