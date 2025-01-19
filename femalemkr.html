@@ -12,7 +12,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
             color: #333;
         }
         header {
@@ -91,11 +91,12 @@
     </select>
 
     <!-- Textboxes with Random Pre-Filled Values -->
-    <input id="hairColor" type="text" value="Black hair color, " readonly>
-    <input id="hairstyle" type="text" value="Pixie Cut hairstyle, " readonly>
-    <input id="faceShape" type="text" value="Oval face, " readonly>
-    <input id="skinColor" type="text" value="Ivory skin color. " readonly>
-    <input id="backgroundText" type="text" value="Set against a neutral background." readonly>
+    <input id="hairColor" type="text" readonly>
+    <input id="hairstyle" type="text" readonly>
+    <input id="faceShape" type="text" readonly>
+    <input id="skinColor" type="text" readonly>
+    <input id="bodyType" type="text" readonly>
+    <input id="backgroundText" type="text" value=" Set against a neutral background." readonly>
 
     <!-- Editable Text Area for Generated Output -->
     <textarea id="finalTextArea" placeholder="Generated description will appear here..."></textarea>
@@ -110,6 +111,7 @@
         const hairstyles = ["Pixie Cut", "Bob Cut", "Lob (Long Bob)", "Blunt Cut", "Layered Cut", "Shag Cut", "Curtain Bangs", "Side-Swept Bangs", "Asymmetrical Cut", "Undercut", "French Twist", "Top Knot", "Low Chignon", "Half-Up Half-Down", "Beach Waves", "Sleek Ponytail", "Braided Crown", "Dutch Braids", "Fishtail Braid", "Messy Bun"];
         const faceShapes = ["Oval", "Round", "Square", "Heart", "Diamond", "Oblong", "Triangle", "Pear", "Rectangle", "Inverted Triangle", "Long Oval", "Wide Round", "Soft Square", "Narrow Heart", "Sharp Diamond", "Broad Oblong", "High Cheekbone Oval", "Asymmetrical", "Angular Square", "Petite Round"];
         const skinColors = ["Ivory", "Porcelain", "Fair", "Light Beige", "Medium", "Tan", "Olive", "Caramel", "Deep Brown", "Ebony"];
+        const bodyTypes = ["Underweight", "Slim", "Average", "Overweight", "Obese"];
 
         // Function to generate random elements
         function getRandomElement(arr) {
@@ -122,7 +124,8 @@
             document.getElementById("hairColor").value = `${getRandomElement(hairColors)} hair color, `;
             document.getElementById("hairstyle").value = `${getRandomElement(hairstyles)} hairstyle, `;
             document.getElementById("faceShape").value = `${getRandomElement(faceShapes)} face, `;
-            document.getElementById("skinColor").value = `${getRandomElement(skinColors)} skin color.`;
+            document.getElementById("skinColor").value = `${getRandomElement(skinColors)} skin color, `;
+            document.getElementById("bodyType").value = `${getRandomElement(bodyTypes)} body.`;
 
             // Gather values from dropdowns and textboxes
             const faceDescription = document.getElementById("list1").value;
@@ -133,10 +136,11 @@
             const hairstyle = document.getElementById("hairstyle").value;
             const faceShape = document.getElementById("faceShape").value;
             const skinColor = document.getElementById("skinColor").value;
+            const bodyType = document.getElementById("bodyType").value;
             const background = document.getElementById("backgroundText").value;
 
             // Combine them into the final output
-            const finalText = `${faceDescription}${age}${ethnicity}${gender}${hairColor}${hairstyle}${faceShape}${skinColor}${background}`.trim();
+            const finalText = `${faceDescription}${age}${ethnicity}${gender}${hairColor}${hairstyle}${faceShape}${skinColor}${bodyType}${background}`.trim();
 
             // Update the final text area
             document.getElementById("finalTextArea").value = finalText;
