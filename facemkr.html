@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Portrait</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        select, textarea, input, button, label {
+            width: 80%;
+            max-width: 600px;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        label {
+            font-weight: bold;
+        }
+        .character-count {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: right;
+            width: 80%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <header>Random Portrait</header>
+
+    <!-- Selectable List: Face Description -->
+    <select id="list1">
+        <option value="Portrait face of a " selected>Portrait face of a</option>
+    </select>
+
+    <!-- Selectable List: Age -->
+    <select id="list2">
+        <option value="29-years-old " selected>29-years-old</option>
+        <option value="19-years-old ">19-years-old</option>
+        <option value="13-years-old ">13-years-old</option>
+        <option value="9-years-old ">9-years-old</option>
+    </select>
+
+    <!-- Selectable List: Ethnicity -->
+    <select id="list3">
+        <option value="Asian " selected>Asian</option>
+    </select>
+
+    <!-- Selectable List: Gender -->
+    <select id="list4">
+        <option value="female " selected>female</option>
+        <option value="male">male</option>
+    </select>
+
+    <!-- Textbox for Background Description -->
+    <input id="backgroundText" type="text" value=". Set against a neutral background.">
+
+    <!-- Editable Text Area for Generated Output -->
+    <textarea id="finalTextArea" placeholder="Generated description will appear here..."></textarea>
+    <label class="character-count" id="characterCount">0/500</label>
+
+    <!-- Button -->
+    <button onclick="generateText()">Generate</button>
+
+    <script>
+        function generateText() {
+            // Gather values from the inputs and dropdowns
+            const faceDescription = document.getElementById("list1").value || "";
+            const age = document.getElementById("list2").value || "";
+            const ethnicity = document.getElementById("list3").value || "";
+            const gender = document.getElementById("list4").value || "";
+            const background = document.getElementById("backgroundText").value || "";
+
+            // Combine them into the final output
+            const finalText = `
+${faceDescription}${age}${ethnicity}${gender}${background}`.trim();
+
+            // Update the final text area
+            document.getElementById("finalTextArea").value = finalText;
+
+            // Update character count
+            const charCount = finalText.length;
+            document.getElementById("characterCount").textContent = `${charCount}/500`;
+        }
+    </script>
+</body>
+</html>
