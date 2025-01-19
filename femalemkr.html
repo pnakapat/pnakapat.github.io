@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Portrait</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        select, textarea, input, button, label {
+            width: 80%;
+            max-width: 600px;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            height: 120px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 10px 15px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        label {
+            font-weight: bold;
+        }
+        .character-count {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: right;
+            width: 80%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <header>Random Portrait</header>
+
+    <!-- Selectable List: Face Description -->
+    <select id="list1">
+        <option value="Portrait face of a " selected>Portrait face of a</option>
+    </select>
+
+    <!-- Selectable List: Age -->
+    <select id="list2">
+        <option value="29-years-old " selected>29-years-old</option>
+        <option value="19-years-old ">19-years-old</option>
+        <option value="13-years-old ">13-years-old</option>
+        <option value="9-years-old ">9-years-old</option>
+    </select>
+
+    <!-- Selectable List: Ethnicity -->
+    <select id="list3">
+        <option value="Asian " selected>Asian</option>
+        <option value="Thai-Chinese mixed">Thai-Chinese mixed</option>
+        <option value="Thai-Japanese mixed">Thai-Japanese mixed</option>
+        <option value="Thai-Korea mixed">Thai-Korea mixed</option>
+        <option value="Thai-Italy mixed">Thai-Italy mixed</option>
+        <option value="Thai-Turkish mixed">Thai-Turkish mixed</option>
+        <option value="Thai-Arab mixed">Thai-Arab mixed</option>
+        <option value="Thai-African mixed">Thai-African mixed</option>
+        <option value="Thai-Indian mixed">Thai-Indian mixed</option>
+    </select>
+
+    <!-- Selectable List: Gender -->
+    <select id="list4">
+        <option value="female " selected>female</option>
+        <option value="male">male</option>
+    </select>
+
+    <!-- Textboxes with Random Pre-Filled Values -->
+    <input id="hairColor" type="text" value="Black hair color, " readonly>
+    <input id="hairstyle" type="text" value="Pixie Cut hairstyle, " readonly>
+    <input id="faceShape" type="text" value="Oval face, " readonly>
+    <input id="skinColor" type="text" value="Ivory skin color. " readonly>
+    <input id="backgroundText" type="text" value="Set against a neutral background." readonly>
+
+    <!-- Editable Text Area for Generated Output -->
+    <textarea id="finalTextArea" placeholder="Generated description will appear here..."></textarea>
+    <label class="character-count" id="characterCount">0/500</label>
+
+    <!-- Button -->
+    <button onclick="generateText()">Generate</button>
+
+    <script>
+        // Arrays for random selections
+        const hairColors = ["Black", "Dark Brown", "Medium Brown", "Light Brown", "Chestnut", "Auburn", "Dark Blonde", "Strawberry Blonde", "Golden Blonde", "Platinum Blonde"];
+        const hairstyles = ["Pixie Cut", "Bob Cut", "Lob (Long Bob)", "Blunt Cut", "Layered Cut", "Shag Cut", "Curtain Bangs", "Side-Swept Bangs", "Asymmetrical Cut", "Undercut", "French Twist", "Top Knot", "Low Chignon", "Half-Up Half-Down", "Beach Waves", "Sleek Ponytail", "Braided Crown", "Dutch Braids", "Fishtail Braid", "Messy Bun"];
+        const faceShapes = ["Oval", "Round", "Square", "Heart", "Diamond", "Oblong", "Triangle", "Pear", "Rectangle", "Inverted Triangle", "Long Oval", "Wide Round", "Soft Square", "Narrow Heart", "Sharp Diamond", "Broad Oblong", "High Cheekbone Oval", "Asymmetrical", "Angular Square", "Petite Round"];
+        const skinColors = ["Ivory", "Porcelain", "Fair", "Light Beige", "Medium", "Tan", "Olive", "Caramel", "Deep Brown", "Ebony"];
+
+        // Function to generate random elements
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        // Generate Text Function
+        function generateText() {
+            // Update random values for each textbox
+            document.getElementById("hairColor").value = `${getRandomElement(hairColors)} hair color, `;
+            document.getElementById("hairstyle").value = `${getRandomElement(hairstyles)} hairstyle, `;
+            document.getElementById("faceShape").value = `${getRandomElement(faceShapes)} face, `;
+            document.getElementById("skinColor").value = `${getRandomElement(skinColors)} skin color.`;
+
+            // Gather values from dropdowns and textboxes
+            const faceDescription = document.getElementById("list1").value;
+            const age = document.getElementById("list2").value;
+            const ethnicity = document.getElementById("list3").value;
+            const gender = document.getElementById("list4").value;
+            const hairColor = document.getElementById("hairColor").value;
+            const hairstyle = document.getElementById("hairstyle").value;
+            const faceShape = document.getElementById("faceShape").value;
+            const skinColor = document.getElementById("skinColor").value;
+            const background = document.getElementById("backgroundText").value;
+
+            // Combine them into the final output
+            const finalText = `${faceDescription}${age}${ethnicity}${gender}${hairColor}${hairstyle}${faceShape}${skinColor}${background}`.trim();
+
+            // Update the final text area
+            document.getElementById("finalTextArea").value = finalText;
+
+            // Update character count
+            const charCount = finalText.length;
+            document.getElementById("characterCount").textContent = `${charCount}/500`;
+        }
+    </script>
+</body>
+</html>
