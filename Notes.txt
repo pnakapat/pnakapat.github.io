@@ -1,0 +1,21 @@
+AI Prompt Maker Code Request 
+----------------------------
+Write a static HTML code according to my requirements.
+Style: Minimal, Modern.
+Function named generateText(): Combine text from multiple elements as input to display in editable text area as output. Also count the characters of output text and display as label  under the output textbox in format (count numer/500)
+Layout from top to bottom of page...
+Header text: AI Prompt Maker
+Element: Selectable list (default: "Depict ") consistents of following choices; "Craft under 500 characters AI prompt depict ","Depict ", "Craft AI Video prompt depict ".
+Element:Editable text area value="concept of"
+Element:label value = "combine with these elements: "
+Element: Selectable list (default: "contemporary period ") consistents of following choices; "contemporary period ", "timeless period", "ancient India period"
+Element: Selectable list (default: "35mm, noir atmosphere) consistents of following choices; "35mm, noir atmosphere", "photo", "photorealistic, "digital art","drawing".
+Element: Selectable list (default:"natural lighting") consistents of following choices; "drama lighting"
+Element: Selectable list (default:"neutral mood") consistents of following choices; "happy mood", "sadness mood"
+Element: Selectable list (default:"realistic") consistents of following choices; "realistic", "surreal", "fantasy storytelling", "abstract"
+Element: Selectable list (default:"daytime") consistents of following choices; "daytime", "nighttime", "morning", "noon", "evening", "sunrise", "sunset"
+Element: Selectable list (default:none) consistents of following choices; "spring", "summer", "autumn", "winter"
+Element:Editable text area.
+Element:Button when clicked will execute generateText() function.
+Element:Inline Button with no caption but use copy icon of fontawesome.com. When clicked will copy generated text to clipboard.
+Element:Inline Button with no caption but use refresh icon from fontawesome.com, when clicked will reset value and refresh the page.
