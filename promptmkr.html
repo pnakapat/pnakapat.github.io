@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Prompt Maker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,7 +13,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f4f4f4;
+            background-color: #f9f9f9;
             color: #333;
         }
         header {
@@ -30,18 +31,23 @@
             border-radius: 5px;
         }
         textarea {
-            height: 100px;
+            height: 120px;
         }
-        button {
+        button, .icon-button {
             background-color: #007BFF;
             color: white;
             border: none;
             cursor: pointer;
             border-radius: 5px;
             padding: 10px 15px;
+            font-size: 1rem;
         }
-        button:hover {
+        button:hover, .icon-button:hover {
             background-color: #0056b3;
+        }
+        .icon-button {
+            padding: 10px;
+            margin: 0 5px;
         }
         label {
             font-weight: bold;
@@ -53,31 +59,39 @@
             width: 80%;
             max-width: 600px;
         }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 600px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <header>AI Prompt Maker</header>
 
-    <!-- Selectable List -->
+    <!-- Selectable List: Main Description -->
     <select id="list1">
-        <option value="Craft under 500 characters AI prompt depict ">Craft under 500 characters AI prompt depict</option>
-        <option value="Depict " selected>Depict</option>
+        <option value="Craft under 500 characters AI prompt depict " selected>Craft under 500 characters AI prompt depict</option>
+        <option value="Depict ">Depict</option>
         <option value="Craft AI Video prompt depict ">Craft AI Video prompt depict</option>
     </select>
 
-    <!-- Editable Text Area -->
+    <!-- Editable Text Area: Concept -->
     <textarea id="conceptTextArea">concept of</textarea>
 
     <!-- Label -->
-    <label>Combine with these elements:</label>
+    <label>combine with these elements:</label>
 
-    <!-- Selectable Lists -->
+    <!-- Selectable List: Period -->
     <select id="list2">
         <option value="contemporary period " selected>contemporary period</option>
         <option value="timeless period">timeless period</option>
         <option value="ancient India period">ancient India period</option>
     </select>
 
+    <!-- Selectable List: Style -->
     <select id="list3">
         <option value="35mm, noir atmosphere" selected>35mm, noir atmosphere</option>
         <option value="photo">photo</option>
@@ -86,25 +100,28 @@
         <option value="drawing">drawing</option>
     </select>
 
+    <!-- Selectable List: Lighting -->
     <select id="list4">
         <option value="natural lighting" selected>natural lighting</option>
         <option value="drama lighting">drama lighting</option>
     </select>
 
+    <!-- Selectable List: Mood -->
     <select id="list5">
         <option value="neutral mood" selected>neutral mood</option>
         <option value="happy mood">happy mood</option>
         <option value="sadness mood">sadness mood</option>
     </select>
 
+    <!-- Selectable List: Realism -->
     <select id="list6">
         <option value="realistic" selected>realistic</option>
-        <option value="hyperrealistic">hyperrealistic</option>
         <option value="surreal">surreal</option>
         <option value="fantasy storytelling">fantasy storytelling</option>
         <option value="abstract">abstract</option>
     </select>
 
+    <!-- Selectable List: Time of Day -->
     <select id="list7">
         <option value="daytime" selected>daytime</option>
         <option value="nighttime">nighttime</option>
@@ -115,42 +132,60 @@
         <option value="sunset">sunset</option>
     </select>
 
+    <!-- Selectable List: Season -->
     <select id="list8">
-        <option value="" selected>None</option>
+        <option value="" selected>none</option>
         <option value="spring">spring</option>
         <option value="summer">summer</option>
         <option value="autumn">autumn</option>
         <option value="winter">winter</option>
     </select>
 
-    <!-- Final Editable Text Area -->
-    <textarea id="finalTextArea" placeholder="Generated prompt will appear here..."></textarea>
+    <!-- Editable Text Area for Generated Output -->
+    <textarea id="finalTextArea" placeholder="Generated description will appear here..."></textarea>
     <label class="character-count" id="characterCount">0/500</label>
 
-    <!-- Button -->
-    <button onclick="generateText()">Generate</button>
+    <!-- Buttons -->
+    <div class="button-container">
+        <button onclick="generateText()">Generate</button>
+        <button class="icon-button" onclick="copyToClipboard()">
+            <i class="fas fa-copy"></i>
+        </button>
+        <button class="icon-button" onclick="resetPage()">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
 
     <script>
+        // Function to generate text
         function generateText() {
-            const list1Value = document.getElementById("list1").value || "";
-            const conceptText = document.getElementById("conceptTextArea").value || "";
-            const list2Value = document.getElementById("list2").value || "";
-            const list3Value = document.getElementById("list3").value || "";
-            const list4Value = document.getElementById("list4").value || "";
-            const list5Value = document.getElementById("list5").value || "";
-            const list6Value = document.getElementById("list6").value || "";
-            const list7Value = document.getElementById("list7").value || "";
-            const list8Value = document.getElementById("list8").value || "";
+            const mainDescription = document.getElementById("list1").value;
+            const concept = document.getElementById("conceptTextArea").value.trim();
+            const period = document.getElementById("list2").value;
+            const style = document.getElementById("list3").value;
+            const lighting = document.getElementById("list4").value;
+            const mood = document.getElementById("list5").value;
+            const realism = document.getElementById("list6").value;
+            const timeOfDay = document.getElementById("list7").value;
+            const season = document.getElementById("list8").value;
 
-            const finalText = `
-${list1Value}${conceptText}
-Combine with these elements: ${list2Value}, ${list3Value}, ${list4Value}, ${list5Value}, ${list6Value}, ${list7Value}, ${list8Value}`.trim();
-
+            const finalText = `${mainDescription}${concept} ${period}${style}, ${lighting}, ${mood}, ${realism}, ${timeOfDay}${season ? `, ${season}` : ""}.`.trim();
             document.getElementById("finalTextArea").value = finalText;
 
-            // Update character count
             const charCount = finalText.length;
             document.getElementById("characterCount").textContent = `${charCount}/500`;
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard() {
+            const text = document.getElementById("finalTextArea");
+            text.select();
+            document.execCommand("copy");
+        }
+
+        // Function to reset the page
+        function resetPage() {
+            location.reload();
         }
     </script>
 </body>
