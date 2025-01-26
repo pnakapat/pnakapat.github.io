@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Portrait</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        select, input, textarea, button, label {
+            width: 80%;
+            max-width: 600px;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            height: 120px;
+        }
+        button, .icon-button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 1rem;
+        }
+        button:hover, .icon-button:hover {
+            background-color: #0056b3;
+        }
+        .icon-button {
+            padding: 10px;
+            margin: 0 5px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .character-count {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: right;
+            width: 80%;
+            max-width: 600px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 600px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>Random Portrait</header>
+
+    <!-- Selectable List: Main Description -->
+    <select id="list1">
+        <option value="Portrait face of a " selected>Portrait face of a</option>
+    </select>
+
+    <!-- Selectable List: Age -->
+    <select id="ageList">
+        <option value="39-years-old ">39-years-old</option>
+        <option value="29-years-old " selected>29-years-old</option>
+        <option value="19-years-old ">19-years-old</option>
+        <option value="13-years-old ">13-years-old</option>
+        <option value="9-years-old ">9-years-old</option>
+    </select>
+
+    <!-- Selectable List: Ethnicity -->
+    <select id="ethnicityList">
+        <option value="Asian " selected>Asian</option>
+        <option value="Thai Chinese-mixed ">Thai Chinese-mixed</option>
+        <option value="Thai Japanese-mixed ">Thai Japanese-mixed</option>
+        <option value="Thai Korean-mixed ">Thai Korean-mixed</option>
+        <option value="Thai Italian-mixed ">Thai Italian-mixed</option>
+        <option value="Thai Turkish-mixed ">Thai Turkish-mixed</option>
+        <option value="Thai Arabian-mixed ">Thai Arabian-mixed</option>
+        <option value="Thai African-mixed ">Thai African-mixed</option>
+        <option value="Thai Indian-mixed ">Thai Indian-mixed</option>
+    </select>
+
+    <!-- Selectable List: Gender -->
+    <select id="genderList" onchange="updateOptions()">
+        <option value="female " selected>female</option>
+        <option value="male ">male</option>
+    </select>
+
+    <!-- Randomized Hair Color -->
+    <input id="hairColor" type="text" readonly>
+
+    <!-- Randomized Hairstyle -->
+    <input id="hairstyle" type="text" readonly>
+
+    <!-- Randomized Face Shape -->
+    <input id="faceShape" type="text" readonly>
+
+    <!-- Randomized Skin Color -->
+    <input id="skinColor" type="text" readonly>
+
+    <!-- Randomized Body Type -->
+    <input id="bodyType" type="text" readonly>
+
+    <!-- Fixed Background Text -->
+    <textarea id="backgroundText" readonly>Set against a neutral background. The image is well-lit and in focus. The style is realistic and resembles a professional headshot.</textarea>
+
+    <!-- Editable Text Area for Generated Output -->
+    <textarea id="finalTextArea" placeholder="Generated description will appear here..."></textarea>
+    <label class="character-count" id="characterCount">0/500</label>
+
+    <!-- Buttons -->
+    <div class="button-container">
+        <button onclick="generateText()">Generate</button>
+        <button class="icon-button" onclick="copyToClipboard()">
+            <i class="fas fa-copy"></i>
+        </button>
+        <button class="icon-button" onclick="resetPage()">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+
+    <script>
+        // Pools for hair color, hairstyle, face shape, skin color, and body type
+        const femaleHairColors = ["Black", "Dark Brown", "Medium Brown", "Light Brown", "Chestnut", "Auburn", "Dark Blonde", "Strawberry Blonde", "Golden Blonde", "Platinum Blonde"];
+        const maleHairColors = ["Black", "Dark Brown", "Medium Brown", "Light Brown", "Chestnut", "Auburn", "Dark Blonde", "Golden Blonde", "Dirty Blonde", "Gray"];
+        const femaleHairstyles = ["Pixie Cut", "Bob Cut", "Lob (Long Bob)", "Blunt Cut", "Layered Cut", "Shag Cut", "Curtain Bangs", "Side-Swept Bangs", "Asymmetrical Cut", "Undercut", "French Twist", "Top Knot", "Low Chignon", "Half-Up Half-Down", "Beach Waves", "Sleek Ponytail", "Braided Crown", "Dutch Braids", "Fishtail Braid", "Messy Bun"];
+        const maleHairstyles = ["Buzz Cut", "Crew Cut", "Undercut", "Fade", "Taper", "Quiff", "Pompadour", "Comb Over", "Slick Back", "Side Part", "French Crop", "Caesar Cut", "Ivy League", "Textured Crop", "Spiky Hair", "Man Bun", "Top Knot", "Mohawk", "Faux Hawk", "Long Layers"];
+        const faceShapes = ["Oval", "Round", "Square", "Heart", "Diamond", "Oblong", "Triangle", "Pear", "Rectangle", "Inverted Triangle", "Long Oval", "Wide Round", "Soft Square", "Narrow Heart", "Sharp Diamond", "Broad Oblong", "High Cheekbone Oval", "Asymmetrical", "Angular Square", "Petite Round"];
+        const skinColors = ["Ivory", "Porcelain", "Fair", "Light Beige", "Medium", "Tan", "Olive", "Caramel", "Deep Brown", "Ebony"];
+        const bodyTypes = ["Underweight", "Slim", "Average", "Overweight", "Obese"];
+
+        // Function to update random options based on gender
+        function updateOptions() {
+            const gender = document.getElementById("genderList").value.trim();
+            const hairColorPool = gender === "female " ? femaleHairColors : maleHairColors;
+            const hairstylePool = gender === "female " ? femaleHairstyles : maleHairstyles;
+
+            document.getElementById("hairColor").value = hairColorPool[Math.floor(Math.random() * hairColorPool.length)] + " hair color, ";
+            document.getElementById("hairstyle").value = hairstylePool[Math.floor(Math.random() * hairstylePool.length)] + " hairstyle, ";
+            document.getElementById("faceShape").value = faceShapes[Math.floor(Math.random() * faceShapes.length)] + " face, ";
+            document.getElementById("skinColor").value = skinColors[Math.floor(Math.random() * skinColors.length)] + " skin color, ";
+            document.getElementById("bodyType").value = bodyTypes[Math.floor(Math.random() * bodyTypes.length)] + " body.";
+        }
+
+        // Function to generate text
+        function generateText() {
+            updateOptions(); // Ensure options are refreshed
+            const mainDescription = document.getElementById("list1").value;
+            const age = document.getElementById("ageList").value;
+            const ethnicity = document.getElementById("ethnicityList").value;
+            const gender = document.getElementById("genderList").value;
+            const hairColor = document.getElementById("hairColor").value;
+            const hairstyle = document.getElementById("hairstyle").value;
+            const faceShape = document.getElementById("faceShape").value;
+            const skinColor = document.getElementById("skinColor").value;
+            const bodyType = document.getElementById("bodyType").value;
+            const backgroundText = document.getElementById("backgroundText").value;
+
+            const finalText = `${mainDescription}${age}${ethnicity}${gender}${hairColor}${hairstyle}${faceShape}${skinColor}${bodyType} ${backgroundText}`.trim();
+            document.getElementById("finalTextArea").value = finalText;
+
+            const charCount = finalText.length;
+            document.getElementById("characterCount").textContent = `${charCount}/500`;
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard() {
+            const text = document.getElementById("finalTextArea");
+            text.select();
+            document.execCommand("copy");
+        }
+
+        // Function to reset the page
+        function resetPage() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
