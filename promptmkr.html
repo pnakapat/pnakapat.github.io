@@ -184,7 +184,7 @@
             text.select();
             document.execCommand("copy");
 
-            const charCount = text.length;
+            const charCount = text.value.length;
             document.getElementById("characterCount").textContent = `${charCount}/500`;
         }
 
