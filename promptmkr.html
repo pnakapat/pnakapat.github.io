@@ -86,7 +86,7 @@
 
     <!-- Selectable List: Period -->
     <select id="list2">
-        <option value="contemporary period " selected>contemporary period</option>
+        <option value="contemporary period" selected>contemporary period</option>
         <option value="timeless period">timeless period</option>
         <option value="ancient India period">ancient India period</option>
     </select>
@@ -170,7 +170,7 @@
             const timeOfDay = document.getElementById("list7").value;
             const season = document.getElementById("list8").value;
 
-            const finalText = `${mainDescription}${concept} ${period}${style}, ${lighting}, ${mood}, ${realism}, ${timeOfDay}${season ? `, ${season}` : ""}.`.trim();
+            const finalText = `${mainDescription}${concept}, ${period}, ${style}, ${lighting}, ${mood}, ${realism}, ${timeOfDay}${season ? `, ${season}` : ""}.`.trim();
             document.getElementById("finalTextArea").value = finalText;
 
             const charCount = finalText.length;
