@@ -183,6 +183,9 @@
             const text = document.getElementById("finalTextArea");
             text.select();
             document.execCommand("copy");
+
+            const charCount = text.length;
+            document.getElementById("characterCount").textContent = `${charCount}/500`;
         }
 
         // Function to reset the page
