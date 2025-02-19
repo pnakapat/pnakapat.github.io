@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Picker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally */
+        }
+        #container {
+          width: 80%; /* Or a specific width */
+          max-width: 960px; /* Optional max-width */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center; /* Center buttons horizontally */
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin: 0 5px; /* Add some space between buttons */
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Center images horizontally */
+        }
+
+        .image-item {
+            margin: 10px;
+            text-align: center; /* Center checkbox and image */
+        }
+
+        img {
+            max-width: 150px;
+            height: auto;
+            display: block; /* Prevents space below image */
+        }
+    </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Artist Picker</h1>
+
+    <textarea id="output" readonly></textarea>
+
+    <div class="controls">
+        <button onclick="clearOptions()" title="Clear"><i class="fas fa-sync"></i></button>
+        <button onclick="copyText()" title="Copy"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="image-container" id="imageContainer">
+        </div>
+  </div>
+
+    <script>
+        const imageContainer = document.getElementById('imageContainer');
+        const outputTextArea = document.getElementById('output');
+
+        function clearOptions() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+            outputTextArea.value = '';
+        }
+
+        function generateText() {
+            let selectedFiles = [];
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                  let filename = cb.dataset.filename;
+                  // Remove file extension
+                  const lastDotIndex = filename.lastIndexOf('.');
+                  if (lastDotIndex > 0) {
+                    filename = filename.substring(0, lastDotIndex);
+                  }
+                  selectedFiles.push(filename);
+                  //selectedFiles.push(cb.dataset.filename);
+                }
+            });
+            outputTextArea.value = selectedFiles.join(', ');
+        }
+        function copyText() {
+          outputTextArea.select();
+          outputTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+          navigator.clipboard.writeText(outputTextArea.value);
+        }
+
+        // Dynamically load images (replace with your actual image loading logic)
+        const imageFiles = [ // Replace with your logic to get image files
+            "artgerm.jpeg", "garmash.jpeg"
+        ];
+
+        imageFiles.forEach(file => {
+            const imageItem = document.createElement('div');
+            imageItem.classList.add('image-item');
+
+            const img = document.createElement('img');
+            img.src = `./images/artist/${file}`;  // Adjust path if needed
+            img.alt = file;
+            imageItem.appendChild(img);
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = file; // Use filename as ID
+            checkbox.dataset.filename = file; // Store filename in dataset
+            checkbox.addEventListener('change', generateText);
+            imageItem.appendChild(checkbox);
+
+            imageContainer.appendChild(imageItem);
+        });
+    </script>
+
+</body>
+</html>
