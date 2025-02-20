@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Keywords Picker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #container {
+          width: 80%; /* Or a specific width */
+          max-width: 960px; /* Optional max-width */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .keyword-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+            gap: 10px;
+        }
+
+        .keyword-item {
+            display: flex;
+            align-items: center; /* Vertically center checkbox and label */
+        }
+
+        label {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+  <div id="container">
+    <h1>Art Keywords Picker</h1>
+
+    <textarea id="output" readonly></textarea>
+
+    <div class="controls">
+        <button onclick="clearOptions()" title="Clear"><i class="fas fa-sync"></i></button>
+        <button onclick="copyText()" title="Copy"><i class="fas fa-copy"></i></button>
+    </div>
+
+    <div class="keyword-grid" id="keywordContainer">
+       </div>
+  </div>
+
+    <script>
+        const keywordContainer = document.getElementById('keywordContainer');
+        const outputTextArea = document.getElementById('output');
+        const defaultKeywords = ["magic", "glittery", "sparkles", "shimmering", "eerie"];
+
+        function clearOptions() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+            outputTextArea.value = '';
+        }
+
+        function generateText() {
+            let selectedKeywords = [];
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    selectedKeywords.push(cb.labels[0].textContent); // Get label text
+                }
+            });
+          	outputTextArea.value = selectedKeywords.join(", ");
+            // outputTextArea.value = ": | " + selectedKeywords.join(", ") + ": -1";
+        }
+
+        function copyText() {
+          outputTextArea.select();
+          outputTextArea.setSelectionRange(0, 99999); /* For mobile devices */
+          navigator.clipboard.writeText(outputTextArea.value);
+        }
+
+        defaultKeywords.forEach(keyword => {
+            const keywordItem = document.createElement('div');
+            keywordItem.classList.add('keyword-item');
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.id = keyword; // Use keyword as ID
+            checkbox.addEventListener('change', generateText);
+            keywordItem.appendChild(checkbox);
+
+            const label = document.createElement('label');
+            label.htmlFor = keyword; // Associate label with checkbox
+            label.textContent = keyword;
+            keywordItem.appendChild(label);
+
+            keywordContainer.appendChild(keywordItem);
+        });
+
+    </script>
+
+</body>
+</html>
