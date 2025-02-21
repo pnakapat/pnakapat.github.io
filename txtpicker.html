@@ -79,8 +79,11 @@
         const keywordContainer = document.getElementById('keywordContainer');
         const outputTextArea = document.getElementById('output');
         const defaultKeywords = [
-            "blurr", "distorted", "extra limbs", 
-            "deformed", "portrait", "close up",
+        	"cartoon",
+            "low quality", "ugly", "blurr", "distorted",
+            "deformed", "extra limbs", 
+            "portrait", "close up",
+            "human", "woman", "man"
         ];
 
         function clearOptions() {
@@ -97,7 +100,7 @@
                     selectedKeywords.push(cb.labels[0].textContent); // Get label text
                 }
             });
-            outputTextArea.value = ": | " + selectedKeywords.join(", ") + ": -1";
+            outputTextArea.value = ": 1 | " + selectedKeywords.join(", ") + ": -1";
         }
 
         function copyText() {
